@@ -233,19 +233,9 @@ def actualizar_datos(cliente):
 			caja.set(round(valor_despues_u, 2))
 
 		#--------------- caja --------------------
- 
-		# datos = re.findall(r"X([\d.,]+)", elementos)
-		# if datos:
-		# 	valor_despues_X = datos[-1]
-
-		# if "," in valor_despues_X:
-		# 	valor_final = valor_despues_X.replace(",", ".")
-		# 	caja.set(valor_final)
-		# else:
-		# 	caja.set(valor_despues_X)
-
 
 		if precio.get() == 1:
+			print(precio.get())
 			salida.set(de.get())
 			CartonSalida_1()
 			CartonSalida_1_proxima()
@@ -271,34 +261,35 @@ def actualizar_datos(cliente):
 
 def color_frame_venta():
 	global total
+
+	labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+	label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+	label_prima, label_prima_E]
 	if total == "1.50":
 		Venta_frame.config(bg="#000099")
-		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#000099")
 
 	elif total == "2.00":
 		Venta_frame.config(bg="#8B0000")#8B0000
-		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		label_prima, label_prima_E]
+		# labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		# label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		# label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#8B0000")
 
 	elif total == "3.00":
 		Venta_frame.config(bg="#FF1493")
-		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		label_prima, label_prima_E]
+		# labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		# label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		# label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#FF1493")
 	elif total == "6.00":
 		Venta_frame.config(bg="#2F4F4F")
-		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		label_prima, label_prima_E]
+		# labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		# label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		# label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#2F4F4F")
 
