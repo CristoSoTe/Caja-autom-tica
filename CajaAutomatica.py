@@ -10,12 +10,12 @@ import threading
 global serie_r1_atras; global serie_r2_atras; global serie_r3_atras; global serie_r4_atras; global serie_r5_atras;
 global serie_r6_atras;  global serie_r7_atras;  global serie_r8_atras; global serie_r9_atras; global historico
 global control_atras; global liquida_total; global series_liquidacion_atras_r1; global control_parpadeo_inicial;
-global cliente; global hilo
+global cliente; global hilo; global total
 
 valor1 = 0; valor2 = 0; valor3 = 0; valor4 = 0; valor5 = 0; valor6 = 0; valor7 = 0; valor8 = 0; valor9 = 0;
 totalCar_2 = 0; totalCar_liquidacion = 0; pico_salid_2 = 0; bandera = 0; series_liquidacion_atras_r1 = 0;
 serie_r1_atras = 0; control_parpadeo_inicial = 0; historico = 1; de = 0; al = 0; precio = 0; vendidos = 0;
-prima = 0; pextra = 0; linea = 0; bingo = 0
+prima = 0; pextra = 0; linea = 0; bingo = 0; total = 0
 
 #Hay que eliminar la linea 63
 
@@ -97,7 +97,7 @@ def comprueba_conexion(cliente):
 def actualizar_datos(cliente):
 	global linea; global bingo; global prima; global pextra;
 	global precio; global de; global al; global vendidos;
-	global impresos; global informaticos; global caja;
+	global impresos; global informaticos; global caja; global total
 
 	try:
 		elementos = cliente.recv(1024).decode('utf-8')
@@ -147,15 +147,21 @@ def actualizar_datos(cliente):
 
 		#---------------Precio--------------------
 		datos = re.findall(r"N([\d.,]+)", elementos)
+		valor_despues_N = 0
+		valor_final = 0
 		if datos:
 			valor_despues_N = datos[-1]
 
 		if "," in valor_despues_N:
 			valor_final = valor_despues_N.replace(",", ".")
 			precio.set(valor_final)
+			total = valor_final
 		else:
 			precio.set(valor_despues_N)
+			total = valor_despues_N
 
+		color_frame_venta()
+		
 		#---------------Del--------------------
 		datos = re.findall(r"L([\d.,]+)", elementos)
 		if datos:
@@ -262,6 +268,39 @@ def actualizar_datos(cliente):
 		# print(elementos)
 		#cliente = establecer_conexion_con_servidor()
 		pass
+
+def color_frame_venta():
+	global total
+	if total == "1.50":
+		Venta_frame.config(bg="#000099")
+		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		label_prima, label_prima_E]
+		for label in labels:
+			label.config(bg="#000099")
+
+	elif total == "2.00":
+		Venta_frame.config(bg="#8B0000")#8B0000
+		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		label_prima, label_prima_E]
+		for label in labels:
+			label.config(bg="#8B0000")
+
+	elif total == "3.00":
+		Venta_frame.config(bg="#FF1493")
+		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		label_prima, label_prima_E]
+		for label in labels:
+			label.config(bg="#FF1493")
+	elif total == "6.00":
+		Venta_frame.config(bg="#2F4F4F")
+		labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
+		label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
+		label_prima, label_prima_E]
+		for label in labels:
+			label.config(bg="#2F4F4F")
 
 def cerrando():
 	precio = float(entry_precio.get())
@@ -3093,8 +3132,8 @@ label_caja = Label(Venta_frame, text ="          CAJA IMPRESOS",bg="#000099", fg
 label_caja.grid(row = 1, column = 7)
 entry_caja = Entry(Venta_frame,justify= RIGHT, state="readonly",textvariable=caja, font=("Arial",12,"bold"), width=10)
 entry_caja.grid(row = 1, column = 8)
-label_recaudado_E = Label(Venta_frame, text ="€",bg="#000099", fg ="#F0F8FF", font=("Times New Roman",12,"bold"))
-label_recaudado_E.grid(row = 1, column = 9)
+label_caja_E = Label(Venta_frame, text ="€",bg="#000099", fg ="#F0F8FF", font=("Times New Roman",12,"bold"))
+label_caja_E.grid(row = 1, column = 9)
 
 label_linea = Label(Venta_frame, text ="             PREMIO DE LINEA",bg="#000099", fg ="#F0F8FF", font=("Times New Roman",12,"bold"))
 label_linea.grid(row = 0, column = 10)
