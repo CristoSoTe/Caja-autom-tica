@@ -23,9 +23,7 @@ raiz = Tk()
 raiz.title("CAJA MESA CARBI-93")
 raiz.attributes('-fullscreen', True)
 raiz.config(bg="#000099")
-
-print("Esta es una prueba")
-
+print("OJO ESTE ES EL DE PRUEBAS")
 #Comprueba que en el carton de salida no se supere los 1800 y no pongas letras
 def validar_entrada(P):
 	if P == "":
