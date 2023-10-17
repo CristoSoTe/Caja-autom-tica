@@ -225,12 +225,22 @@ def actualizar_datos(cliente):
 		if "," in valor_despues_u:
 			valor_final = valor_despues_u.replace(",", ".")
 			recaudado.set(valor_final)
-			caja_final = (float(valor_final) * 0.37)
-			caja.set(round(caja_final, 2))
+			if "." in valor_final:
+				valor_sin_puntos = valor_final.replace(".", "")
+				valor_corregido = float(valor_sin_puntos) / 100
+				valor_final_corregido = valor_corregido * 0.37
+				valor_final_formateado = '{:,.2f}'.format(valor_final_corregido).replace(',', '.')
+				caja.set(valor_final_formateado)
 		else:
 			recaudado.set(valor_despues_u)
-			caja_final = (float(valor_despues_u) * 0.37)
-			caja.set(round(valor_despues_u, 2))
+			if "." in valor_despues_u:
+				valor_sin_puntos = valor_despues_u.replace(".", "")
+				valor_corregido = float(valor_sin_puntos) / 100
+				valor_final_corregido = valor_corregido * 0.37
+				valor_final_formateado = '{:,.2f}'.format(valor_final_corregido).replace(',', '.')
+				caja.set(valor_final_formateado)
+				#caja_final = (float(valor_despues_u) * 0.37)
+				#caja.set(round(valor_despues_u, 2))
 
 		#--------------- caja --------------------
 
