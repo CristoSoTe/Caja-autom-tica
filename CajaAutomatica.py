@@ -17,13 +17,11 @@ totalCar_2 = 0; totalCar_liquidacion = 0; pico_salid_2 = 0; bandera = 0; series_
 serie_r1_atras = 0; control_parpadeo_inicial = 0; historico = 1; de = 0; al = 0; precio = 0; vendidos = 0;
 prima = 0; pextra = 0; linea = 0; bingo = 0; total = 0
 
-#Hay que eliminar la linea 63
-
 raiz = Tk()
 raiz.title("CAJA MESA CARBI-93")
 raiz.attributes('-fullscreen', True)
 raiz.config(bg="#000099")
-print("OJO ESTE ES EL DE PRUEBAS")
+
 #Comprueba que en el carton de salida no se supere los 1800 y no pongas letras
 def validar_entrada(P):
 	if P == "":
@@ -225,17 +223,24 @@ def actualizar_datos(cliente):
 		if "," in valor_despues_u:
 			valor_final = valor_despues_u.replace(",", ".")
 			recaudado.set(valor_final)
-			caja_final = (float(valor_final) * 0.37)
-			caja.set(round(caja_final, 2))
+			if "." in valor_final:
+				valor_sin_puntos = valor_final.replace(".", "")
+				valor_corregido = float(valor_sin_puntos) / 100
+				valor_final_corregido = valor_corregido * 0.37
+				valor_final_formateado = '{:,.2f}'.format(valor_final_corregido).replace(',', '.')
+				caja.set(valor_final_formateado)
 		else:
 			recaudado.set(valor_despues_u)
-			caja_final = (float(valor_despues_u) * 0.37)
-			caja.set(round(valor_despues_u, 2))
+			if "." in valor_despues_u:
+				valor_sin_puntos = valor_despues_u.replace(".", "")
+				valor_corregido = float(valor_sin_puntos) / 100
+				valor_final_corregido = valor_corregido * 0.37
+				valor_final_formateado = '{:,.2f}'.format(valor_final_corregido).replace(',', '.')
+				caja.set(valor_final_formateado)
 
 		#--------------- caja --------------------
 
 		if precio.get() == 1:
-			print(precio.get())
 			salida.set(de.get())
 			CartonSalida_1()
 			CartonSalida_1_proxima()
@@ -254,9 +259,6 @@ def actualizar_datos(cliente):
 
 		cambiaColor()
 	except:
-		# elementos = cliente.recv(1024).decode('utf-8')
-		# print(elementos)
-		#cliente = establecer_conexion_con_servidor()
 		pass
 
 def color_frame_venta():
@@ -272,24 +274,15 @@ def color_frame_venta():
 
 	elif total == "2.00":
 		Venta_frame.config(bg="#8B0000")#8B0000
-		# labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		# label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		# label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#8B0000")
 
 	elif total == "3.00":
 		Venta_frame.config(bg="#FF1493")
-		# labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		# label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		# label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#FF1493")
 	elif total == "6.00":
 		Venta_frame.config(bg="#2F4F4F")
-		# labels = [label_precio, label_precio_E, label_del, label_impresos, label_recaudado, label_recaudado_E, label_caja, label_caja_E, label_linea,
-		# label_linea_E, label_vendidos, label_al, label_informaticos, label_bingo, label_bingo_E, label_bingo_E, label_prima_extra, label_prima_extra_E,
-		# label_prima, label_prima_E]
 		for label in labels:
 			label.config(bg="#2F4F4F")
 
