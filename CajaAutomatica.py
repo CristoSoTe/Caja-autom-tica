@@ -75,17 +75,15 @@ def establecer_conexion_con_servidor():
 			
 def comprueba_conexion(cliente):
 	while not detener_hilo.is_set():
-		#print("No hay datos")
 		try:
-			#datos = cliente.recv(1024)
-			# if not datos:
-			# 	raise Exception("Se ha perdido la conexióooon con el servidor.")
-			# 	print("No hay datos uno")
-			# else:
-			#print("No hay datos dos")
-			#cliente = establecer_conexion_con_servidor()
-			actualizar_datos(cliente)
-			time.sleep(2)
+			datos = cliente.recv(1024)
+			if len(datos) <= 0:
+				cliente = establecer_conexion_con_servidor()
+				actualizar_datos(cliente)
+				time.sleep(2)
+			else:
+				actualizar_datos(cliente)
+				time.sleep(2)
 		except Exception as e:
 			if detener_hilo.is_set():
 				break
