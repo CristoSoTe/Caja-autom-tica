@@ -215,7 +215,7 @@ def actualizar_datos(cliente):
 		else:
 			informaticos.set(valor_despues_g)
 
-		#---------------Recaudado y caja--------------------
+		#---------------Recaudado--------------------
 		datos = re.findall(r"u([\d.,]+)", elementos)
 		if datos:
 			valor_despues_u = datos[-1]
@@ -223,36 +223,28 @@ def actualizar_datos(cliente):
 		if "," in valor_despues_u:
 			valor_final = valor_despues_u.replace(",", ".")
 			recaudado.set(valor_final)
-			if "." in valor_final:
-				valor_sin_puntos = valor_final.replace(".", "")
-				valor_corregido = float(valor_sin_puntos) / 100
-				valor_final_corregido = valor_corregido * 0.37
-				valor_final_formateado = '{:,.2f}'.format(valor_final_corregido).replace(',', '.')
-				caja.set(valor_final_formateado)
 		else:
 			recaudado.set(valor_despues_u)
-			if "." in valor_despues_u:
-				valor_sin_puntos = valor_despues_u.replace(".", "")
-				valor_corregido = float(valor_sin_puntos) / 100
-				valor_final_corregido = valor_corregido * 0.37
-				valor_final_formateado = '{:,.2f}'.format(valor_final_corregido).replace(',', '.')
-				caja.set(valor_final_formateado)
 
 		#--------------- caja --------------------
 
 		if precio.get() == 1:
+			caja.set(float(impresos.get() * 1.5 * 0.37))
 			salida.set(de.get())
 			CartonSalida_1()
 			CartonSalida_1_proxima()
 		elif precio.get() == 2:
+			caja.set(float(impresos.get() * 2 * 0.37))
 			salida_2.set(de.get())
 			CartonSalida_2()
 			CartonSalida_2_proxima()
 		elif precio.get() == 3:
+			caja.set(float(impresos.get() * 3 * 0.37))
 			salida_3.set(de.get())
 			CartonSalida_3()
 			CartonSalida_3_proxima()
 		elif precio.get() == 6:
+			caja.set(float(impresos.get() * 6 * 0.37))
 			salida_6.set(de.get())
 			CartonSalida_6()
 			CartonSalida_6_proxima()
