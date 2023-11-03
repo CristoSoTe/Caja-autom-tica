@@ -229,22 +229,26 @@ def actualizar_datos(cliente):
 		#--------------- caja --------------------
 
 		if precio.get() == 1:
-			caja.set(float(impresos.get() * 1.5 * 0.37))
+			caja_final = round(float(impresos.get() * 1.5 * 0.37), 2) 
+			caja.set(f"{caja_final:.2f}")
 			salida.set(de.get())
-			CartonSalida_1()
+			CartonSalida_1() 
 			CartonSalida_1_proxima()
 		elif precio.get() == 2:
-			caja.set(float(impresos.get() * 2 * 0.37))
+			caja_final = round(float(impresos.get() * 2 * 0.37), 2)
+			caja.set(f"{caja_final:.2f}")
 			salida_2.set(de.get())
 			CartonSalida_2()
 			CartonSalida_2_proxima()
 		elif precio.get() == 3:
-			caja.set(float(impresos.get() * 3 * 0.37))
+			caja_final = round(float(impresos.get() * 3 * 0.37), 2)
+			caja.set(f"{caja_final:.2f}")
 			salida_3.set(de.get())
 			CartonSalida_3()
 			CartonSalida_3_proxima()
 		elif precio.get() == 6:
-			caja.set(float(impresos.get() * 6 * 0.37))
+			caja_final = round(float(impresos.get() * 6 * 0.37), 2)
+			caja.set(f"{caja_final:.2f}")
 			salida_6.set(de.get())
 			CartonSalida_6()
 			CartonSalida_6_proxima()
