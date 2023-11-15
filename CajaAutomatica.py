@@ -6,6 +6,7 @@ import socket
 import re
 import time
 import threading
+from decimal import Decimal, ROUND_HALF_UP
 
 global serie_r1_atras; global serie_r2_atras; global serie_r3_atras; global serie_r4_atras; global serie_r5_atras;
 global serie_r6_atras;  global serie_r7_atras;  global serie_r8_atras; global serie_r9_atras; global historico
@@ -93,8 +94,16 @@ def comprueba_conexion(cliente):
 			cliente = establecer_conexion_con_servidor()
 
 def caja_impresos(num):
-	caja_final = round(float(impresos.get() * num * 0.37), 2) 
-	caja.set(f"{caja_final:.2f}")
+	if recaudado.get() - (impresos.get() * num) > 0:
+		resultado = recaudado.get() - (impresos.get() * num)
+		resultado_informaticos = resultado * 0.37
+		resultado_impresos = (impresos.get() * num) * 0.37
+		total = resultado_impresos - resultado_informaticos
+		caja.set(f"{total:.2f}")
+	else:
+		resultado_impresos = (impresos.get() * num) * 0.37
+		caja.set(f"{resultado_impresos:.2f}")
+
 
 def actualizar_datos(cliente):
 	global linea; global bingo; global prima; global pextra;
